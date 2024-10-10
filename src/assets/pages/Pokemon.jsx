@@ -5,6 +5,7 @@ export default function Pokemon() {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
 
   // Pokemon API
   const API = "https://pokeapi.co/api/v2/pokemon?limit=124";
@@ -34,6 +35,11 @@ export default function Pokemon() {
     getApiData();
   }, []);
 
+  // search functionalities
+  const searchData = apiData.filter((curCard) =>
+    curCard.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   // handle loading
   if (loading)
     return (
@@ -58,10 +64,14 @@ export default function Pokemon() {
       <input
         type="text"
         className="px-4 text-[20px] py-1 outline-none border-b-2 border-green-500"
+        placeholder="search pokemon"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <div className="mt-4">
         <ul className="flex flex-wrap justify-center items-center gap-8">
-          {apiData.map((value) => (
+          {/* {apiData.map((value) => ( */}
+          {searchData.map((value) => (
             <li key={value.id}>
               <Card
                 data={value}
