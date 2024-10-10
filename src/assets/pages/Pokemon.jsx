@@ -2,17 +2,22 @@ import Card from "../Components/Card";
 import { useEffect, useState } from "react";
 
 export default function Pokemon() {
-  const [apiData, setApiData] = useState(null);
+  const [apiData, setApiData] = useState([]);
 
-  const API = "https://pokeapi.co/api/vs/pokemon?limit=24";
+  const API = "https://pokeapi.co/api/v2/pokemon?limit=124";
 
   const getApiData = async () => {
     try {
       const res = await fetch(API);
       const data = await res.json();
-      console.log(data);
+      const detailData = data.results.map(async (value) => {
+        const res = await fetch(value.url);
+        const data = await res.json();
+        return data;
+      });
 
-      setApiData(data);
+      const detailedResponse = await Promise.all(detailData);
+      setApiData(detailedResponse);
     } catch (error) {
       console.log(error.message);
     }
@@ -32,7 +37,13 @@ export default function Pokemon() {
         className="px-4 text-[20px] py-1 outline-none border-b-2 border-gray-500"
       />
       <div className="mt-4">
-        <Card />
+        <ul className="flex flex-wrap justify-center items-center gap-8">
+          {apiData.map((value, index) => (
+            <li key={index}>
+              <Card name={value.name} />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
