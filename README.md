@@ -27,6 +27,11 @@ Vite - Fast build tool for modern web projects (optional).
 Installation
 Clone the repository
 
+Screenshots
+![image alt](https://github.com/nehal7472/Searching-Pokemon/blob/8dfa01684546af833767cc297be0de773d13abc0/screenmshot-2.png)
+
+![image alt](https://github.com/nehal7472/Searching-Pokemon/blob/8dfa01684546af833767cc297be0de773d13abc0/screenshot-3.png)
+
 bash
 Copy code
 git clone https://github.com/yourusername/your-repo-name.git
